@@ -1,25 +1,51 @@
 "use client";  //now its a frontend or client component
 
 import Link from "next/link";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useRouter } from "next/navigation";
-import { Axios } from "axios";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 
 
 export default function LoginPage(){
+    const router = useRouter();
     const [user, setUser]= React.useState({
         email: "",
         password: "",
     });
 
-    const onLogin = async ()=>{   //async bcoz it'll talk to DB
+    //just to disable button if any field is empty
+    const [buttonDisabled, setButtonDisabled] = React.useState(false);
+    useEffect(()=>{
+        if(user.email.length>0 && user.password.length>0){
+            setButtonDisabled(false);
+        }else{
+            setButtonDisabled(true);
+        }
+    },[user]);
+    const [loading, setLoading] = React.useState(false);
 
+    const onLogin = async ()=>{   //async bcoz it'll talk to DB
+        try {
+            setLoading(true);
+            const response = await axios.post("/api/users/login", user);//making a post request to the backend
+            console.log("Login success", response.data);
+            toast.success("Login Successful");
+
+            //once login is successful, redirect to home page
+            router.push("/profile");
+        } catch (error: any) {
+            console.log("Login failed", error.message);
+            toast.error(error.message);
+        } finally {
+            setLoading(false);
+        }
     }
 
     return(
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
-            <h1 className="mb-4 text-lg">Login</h1>
+            <h1 className="mb-4 text-lg">{loading? "processing": "Login"}</h1>
             <hr />
             <label htmlFor="email">Email</label>
             <input type="text" 
@@ -40,7 +66,7 @@ export default function LoginPage(){
             <button
                 className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
                 onClick={onLogin}
-            >Login</button>
+            >{buttonDisabled? "No Login": "Login"}</button>
             <Link href="/signup">No account? Register instead</Link>
         </div>
     )
