@@ -19,7 +19,7 @@ export default function SignupPage(){
     });
 
     //just to disable button if any field is empty
-    const [buttonDisabled, setButtonDisabled] = React.useState(false);
+    const [buttonDisabled, setButtonDisabled] = React.useState(true);
     useEffect(()=>{
         if(user.email.length>0 && user.password.length>0 && user.username.length>0){
             setButtonDisabled(false);
@@ -78,7 +78,8 @@ export default function SignupPage(){
             />
             <button
                 className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
-                onClick={onSignup}
+                onClick={onSignup}  
+                disabled={buttonDisabled}
             >{buttonDisabled? "No SignUP": "SignUp"}</button>
             <Link href="/login">Login Instead</Link>
         </div>
