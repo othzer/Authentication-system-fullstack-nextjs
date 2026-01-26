@@ -6,7 +6,7 @@ import type { NextRequest } from 'next/server'
 export function proxy(request: NextRequest) {
     const path = request.nextUrl.pathname
     
-    const isPublicPath = path==='/login' || path==='/signup' || path==='/verifyemail' || path==='/resetpassword' || path==='/forgotpassword'
+    const isPublicPath = path==='/login' || path==='/signup' || path==='/verifyemail' || path==='/resetpassword' || path==='/forgotpassword' || path==='/'
 
     const token = request.cookies.get('token')?.value || '' //getting token if avail from the request
 
