@@ -25,6 +25,7 @@ export default function ProfilePage() {
         console.log("User details", response.data);
         setData(response.data.data._id);
     }
+    
     ///other way
     // useEffect(()=>{
     //     getUserDetails();
@@ -36,7 +37,7 @@ export default function ProfilePage() {
             <hr />
             <p>Base Profile page</p>
             <h2 className="bg-yellow-300 text-white text-3xl rounded-lg p-2 m-2">
-                {data === 'whatever!'? "WhatEvErrr": <Link href={`/profile/${data}`}>{data}</Link>}
+                {data === 'whatever!'? "WhatEvErrr": <Link href={`/profile/${data}`}>Visit profile</Link>}
             </h2>
 
         <hr />
