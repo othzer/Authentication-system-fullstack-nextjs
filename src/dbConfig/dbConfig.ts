@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import { env } from "@/lib/env";
 
 export async function connect(){
     try {
-        await mongoose.connect(process.env.MONGO_URI!); //! is in ts, it means i care about the type, u dont worry
+        await mongoose.connect(env.MONGO_URI); //! is in ts, it means i care about the type, nextjs dont worry...not here anymore
         const connection = mongoose.connection;
 
         connection.on('connected', ()=>{

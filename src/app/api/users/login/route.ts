@@ -3,6 +3,7 @@ import User from "@/models/userModel"
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { env } from "@/lib/env";
 
 connect();
 
@@ -21,7 +22,7 @@ export async function POST(request: NextRequest){
         //check if passw is correct
         const validPassword = await bcryptjs.compare(password, user.password)
         if(!validPassword){
-            return NextResponse.json({error: "INvalid Passowrd"}, {status: 400})
+            return NextResponse.json({error: "Invalid Password"}, {status: 400})
         }
 
         //create token data
@@ -30,8 +31,9 @@ export async function POST(request: NextRequest){
             username: user.username,
             email: user.email
         }
+
         //create token
-        const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET, {expiresIn: "1d"})
+        const token = jwt.sign(tokenData, env.TOKEN_SECRET, { expiresIn: "1d" });
 
         const response = NextResponse.json({
             message: "Login Successful",
