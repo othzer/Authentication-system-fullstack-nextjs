@@ -3,7 +3,7 @@ import User from "@/models/userModel"
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { env } from "@/lib/env";
+import { env } from "@/helpers/env";
 
 connect();
 

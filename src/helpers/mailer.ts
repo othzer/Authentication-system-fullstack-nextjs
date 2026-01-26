@@ -47,7 +47,7 @@ import nodemailer from "nodemailer";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
 import bcryptjs from "bcryptjs";
 import User from "@/models/userModel";
-import { env } from "@/lib/env";
+import { env } from "@/helpers/env";
 
 type EmailType = "VERIFY" | "RESET";
 
@@ -80,7 +80,7 @@ export const sendEmail = async ({
 
     //Explicit SMTP typing
     const transportOptions: SMTPTransport.Options = {
-      host: "sandbox.smtp.mailtrap.io",
+      host: env.MAILTRAP_HOST,
       port: Number(env.MAILTRAP_PORT),
       auth: {
         user: env.MAILTRAP_USER_ID,

@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
-import { env } from "@/lib/env";
+import { env } from "@/helpers/env";
 
 export const getDataFromToken = (request: NextRequest)=>{
     try {

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { env } from "@/lib/env";
+import { env } from "@/helpers/env";
 
 export async function connect(){
     try {
